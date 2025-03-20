@@ -10,15 +10,17 @@ import {
 import { getContacts } from "../data";
 import type { Route } from "./+types/sidebar";
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const q = url.searchParams.get("q");
   const contacts = await getContacts(q);
-  return { contacts, q };
+  // Just to show we can pull values from the Worker env
+  const linkTitle = context.cloudflare.env.ABOUT_LINK_TITLE;
+  return { contacts, q, linkTitle };
 }
 
 export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
-  const { contacts, q } = loaderData;
+  const { contacts, q, linkTitle } = loaderData;
   const navigation = useNavigation();
   const submit = useSubmit();
   const searching =
@@ -36,7 +38,7 @@ export default function SidebarLayout({ loaderData }: Route.ComponentProps) {
     <>
       <div id="sidebar">
         <h1>
-          <Link to="about">React Router Contacts</Link>
+          <Link to="about">{linkTitle}</Link>
         </h1>
         <div>
           <Form
