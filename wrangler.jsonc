@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "react-router-address-book",
+  "compatibility_date": "2025-02-24",
+  "main": "./workers/app.ts",
+  "assets": {},
+  "vars": {
+    "ABOUT_LINK_TITLE": "React Router Contacts"
+  }
+}
