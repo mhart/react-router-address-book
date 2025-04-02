@@ -1,6 +1,4 @@
 import {
-  Form,
-  Link,
   Outlet,
   Scripts,
   ScrollRestoration,
@@ -9,8 +7,6 @@ import {
 } from "react-router";
 import type { Route } from "./+types/root";
 
-import { getContacts } from "./data";
-
 import appStylesHref from "./app.css?url";
 
 import { createEmptyContact } from "./data";
@@ -18,11 +14,6 @@ import { createEmptyContact } from "./data";
 export async function action() {
   const contact = await createEmptyContact();
   return redirect(`/contacts/${contact.id}/edit`);
-}
-
-export async function clientLoader() {
-  const contacts = await getContacts();
-  return { contacts };
 }
 
 // The Layout component is a special export for the root route.
